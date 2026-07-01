@@ -2,48 +2,39 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
-    public function __construct()
-	{
-		parent::__construct();
-
-		$this->load->model('MahasiswaModel');
-	}
 
     public function index()
-	{
-		// Jika sudah login, redirect ke dashboard
-		if ($this->session->userdata('user')) {
-			redirect('dashboard');
-		}
+    {
+        if($this->input->post())
+        {
+            $email = $this->input->post('email');
+            $password = sha1($this->input->post('password'));
 
-		$data['error'] = null;
+            $user = $this->db->get_where('users', [
+                'email' => $email,
+                'password' => $password
+            ])->row();
 
-		if ($this->input->post()) {
-			$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-			$this->form_validation->set_rules('password', 'Password', 'required|min_length[5]');
-
-			if ($this->form_validation->run() === TRUE) {
-				$formulir = [
-					'email' => $this->input->post('email'),
-					'password' => $this->input->post('password'),
-				];
-
-				$status = $this->MahasiswaModel->checkAccount($formulir);
-
-				if ($status) {
-					redirect('dashboard');
-				} else {
-					$data['error'] = 'Email atau password salah. Periksa kembali akun anda.';
-				}
-			}
-		}
-
-		$this->load->view('auth/login', $data);
-	}
+            if($user)
+            {
+                $this->session->set_userdata('user', $user);
+                redirect('dashboard');
+            }
+            else
+            {
+                $data['error'] = 'Email atau Password salah';
+                $this->load->view('auth/login', $data);
+            }
+        }
+        else
+        {
+            $this->load->view('auth/login');
+        }
+    }
 
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect('', 'refresh');
+        redirect('auth');
     }
 }
