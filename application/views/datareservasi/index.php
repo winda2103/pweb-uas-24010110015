@@ -149,11 +149,30 @@ body{
     font-family:"Times New Roman", serif;
 }
 
+.sidebar.hide{
+    left:-250px;
+    transition:0.3s;
+}
+
+.main.full{
+    margin-left:0;
+    transition:0.3s;
+}
+
+.sidebar,
+.main{
+    transition:0.3s;
+}
+
+.menu-toggle{
+    cursor:pointer;
+}
+
 </style>
 
 <body>
 
-    <div class="sidebar">
+   <div class="sidebar" id="sidebar">
 
         <div class="logo-header">
 
@@ -216,12 +235,12 @@ body{
 
     </div>
 
-    <div class="main">
+   <div class="main" id="main">
 
         <div class="topbar">
 
                 <div class="d-flex align-items-center gap-3">
-                    <i class="bi bi-list fs-2"></i>
+                    <i class="bi bi-list fs-2 menu-toggle" id="menuToggle"></i>
                     <h3 class="m-0">Data Reservasi</h3>
                 </div>
 
@@ -315,7 +334,6 @@ body{
             </div>
 
     
-
         <div class="content">
 
             <div class="d-flex justify-content-end mb-4">
@@ -423,5 +441,15 @@ body{
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 
+<script>
+const menu = document.getElementById("menuToggle");
+const sidebar = document.getElementById("sidebar");
+const main = document.getElementById("main");
+
+menu.addEventListener("click", function(){
+    sidebar.classList.toggle("hide");
+    main.classList.toggle("full");
+});
+</script>
 </body>
 </html>
