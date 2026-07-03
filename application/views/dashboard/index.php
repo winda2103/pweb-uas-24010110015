@@ -324,7 +324,7 @@ body{
 
         <div class="logo-text">
             <div class="logo-badminton">BADMINTON</div>
-            <div class="logo-reservasi">RESERVASI</div>
+            <div class="logo-reservasi">RESERVASI</div> 
             <div class="logo-admin">ADMIN PANEL</div>
         </div>
 
@@ -351,7 +351,7 @@ body{
         <a href="#"><i class="bi bi-gear"></i> Pengaturan</a>
 
         <a href="<?= base_url('auth/logout') ?>">
-            <i class="bi bi-box-arrow-right"></i> Logout
+            <i class="bi bi-box-arrow-right"></i> Logout //update
         </a>
     </div>
 
